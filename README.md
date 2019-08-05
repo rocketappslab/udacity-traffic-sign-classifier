@@ -74,8 +74,8 @@ pip install opencv-python
 | |My Network |Another Network|
 |:------|:------:|:------------:|
 |# Conv Layer| 4| 11|
-|Total params| 47,307| ?|
-|Trainable params| 47,307| ?|
+|Total params| 47,307| 412,715|
+|Trainable params| 47,307| 412,715|
 |Non-trainable params| 0| 0|
 
 
