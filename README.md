@@ -39,10 +39,13 @@ pip install opencv-python
 |:------| :------------|
 |Input | (None, 32, 32, 1)|
 |Convolution (32, 3x3, valid, ReLU)| (None, 30, 30, 32)|
+|BatchNormalization| (None, 30, 30, 32)|
 |Max Pooling (2x2,valid)| (None, 15, 15, 32)|
 |Convolution (32, 3x3, valid, ReLU)| (None, 13, 13, 32)|
+|BatchNormalization| (None, 13, 13, 32)|
 |Max Pooling (2x2,valid)| (None, 6, 6, 32)|
 |Convolution (32, 3x3, valid, ReLU)| (None, 4, 4, 32)|
+|BatchNormalization| (None, 4, 4, 32)|
 |Max Pooling (2x2,valid)| (None, 2, 2, 32)|
 |Flatten| (None, 128)|
 |Dense (ReLU)| (None, 64)|
@@ -54,28 +57,33 @@ pip install opencv-python
 - Learning rate: 0.001
 - Loss function: categorical_crossentropy
 - Batch size: 500
-- epoch: 150
+- epoch: 100
 
 ### 4. Evaluation
 - The network trained well with:
     - Training loss = 0.014
     - Training accuracy = 0.995
-    - Validation loss = 0.031
-    - Validation accuracy = 0.994
+    - Validation loss = 0.028
+    - Validation accuracy = 0.993
     - Overall accuracy = 0.99
-- For testing, it obtained accuracy with 0.96 which is a good performance
+- For testing, it obtained accuracy with 0.97 which is a good performance
 
 ### 5. Discussion
 - Overftting and Generalization
     - The log of acc and loss of training and validation set shows that they are processing with a similiar way. It means that my network does not overfit too much. For the testing statge, my testing score is 0.96 which is 0.03 lower than training result. Notwithstanding it is not a perfest result, the performance of my the nerwork is acceptable for this traffic sign classifier dataset.
 - Comparision of another network
     - I have compared my network with a solution proposed in GitHub with similiar training, validation and testing performance.The number of conv layers I used (4 vs 11), however, is around 3 times fewer than it. Faster learning procecess can be acheived with fewer numbers of parameters for my model.
+- Effect of Batchnormalization
+    - On top of the structure of MyNet_v2, I added batch normalization layer at each of the activation layers. It results an enhancement of 0.01 score. It is because it can normalize the input to the activation function so that the inpt data is centered to the linear section of the activation fucntion. In my case, the centre of ReLU function is 0. It generalizes the input so that it is easier to seperate the features. [(For More Information)](https://stackoverflow.com/questions/34716454/where-do-i-call-the-batchnormalization-function-in-keras)
     
-| |My Network |Another Network|
-|:------|:------:|:------------:|
-|# Conv Layer| 4| 11|
-|Total params| 47,307| 412,715|
-|Trainable params| 47,307| 412,715|
-|Non-trainable params| 0| 0|
+| |MyNet_v1|MyNet_v2|MyNet_v3|Another Network|
+|:------|:------:|:------:|:------:|:------------:|
+|# Conv Layer|3|4|4|11|
+|Total params|169,131|47,307|47,819|412,715|
+|Trainable params|169,131|47,307|47,563|412,715|
+|Non-trainable params|0|0|256|0|
+|Batchnomalization|No|No|Yes|No|
+|Testing accuracy|0.95|0.96|0.97|0.96|
+
 
 
